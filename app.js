@@ -1,4 +1,4 @@
-import './styles.css';
+import 'styles.css';
 import {useState} from 'react';
 function App() {
   const [text, setText] = useState('Will you be my valentine?');
