@@ -20,6 +20,7 @@
             color: white;
             text-decoration: none;
             min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         a {
@@ -38,6 +39,8 @@
 
         .App-logo {
             height: 40vmin;
+            max-height: 300px;
+            min-height: 200px;
             pointer-events: none;
             border-radius: 10px;
             margin-bottom: 30px;
@@ -49,6 +52,7 @@
             margin-bottom: 30px;
             min-height: 40px;
             text-shadow: 0 2px 4px rgba(40, 23, 39, 0.3);
+            padding: 0 20px;
         }
 
         .buttons-container {
@@ -57,6 +61,9 @@
             margin-top: 20px;
             flex-wrap: wrap;
             justify-content: center;
+            align-items: center;
+            max-width: 100%;
+            padding: 0 20px;
         }
 
         button {
@@ -70,6 +77,11 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 16px;
+            min-width: 80px; /* Prevent buttons from becoming too small */
+            max-width: 300px; /* Prevent buttons from becoming too large */
+            overflow: hidden; /* Keep text inside button */
+            white-space: nowrap; /* Keep text on one line */
+            text-overflow: ellipsis; /* Add ... if text overflows */
         }
 
         button:hover {
@@ -84,6 +96,7 @@
 
         .yes {
             background-color: green;
+            transition: font-size 0.3s ease, padding 0.3s ease; /* Smooth size transitions */
         }
 
         .no {
@@ -100,6 +113,8 @@
             font-size: calc(10px + 2vmin);
             color: white;
             padding: 20px;
+            width: 100%;
+            overflow: hidden; /* Prevent content from overflowing */
         }
 
         .footer {
@@ -144,18 +159,20 @@
 
         @media (max-width: 600px) {
             .App-logo {
-                height: 50vmin;
+                height: 40vmin;
+                max-height: 250px;
             }
             
             .buttons-container {
-                flex-direction: column;
-                align-items: center;
+                flex-direction: row; /* Keep buttons side by side on mobile */
+                flex-wrap: wrap;
                 gap: 15px;
             }
             
             .yes, .no {
-                width: 150px;
+                width: 120px;
                 padding: 15px 0;
+                font-size: 14px;
             }
             
             .footer {
@@ -163,6 +180,17 @@
                 bottom: auto;
                 margin-top: 30px;
                 padding-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .buttons-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .yes, .no {
+                width: 150px;
             }
         }
     </style>
@@ -173,16 +201,16 @@
             <img id="logo" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWphMHVqczg1NHFocDN5bGk3a2Mzd2t4cnpzdGtzcjBjbDVhcjdmeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/SoZAMdHWldHbQHLCGZ/giphy.gif" class="App-logo" alt="Hello Kitty Valentine">
             <p id="message" class="message">Will you be my valentine?</p>
             <div class="buttons-container">
-                <button id="yesButton" class="yes" style="font-size: 16px;">
+                <button id="yesButton" class="yes">
                     Yes
                 </button>
-                <button id="noButton" class="no" style="font-size: 16px;">
+                <button id="noButton" class="no">
                     No
                 </button>
             </div>
             
             <div class="footer">
-                <a href="http://fathomless-bayou-60027.herokuapp.com/">
+                <a href="http://jerardlouis.github.io/">
                     <small>
                         By Jerard Louis Dayanghirang Guevarra
                         <br/>
@@ -215,6 +243,7 @@
         const logoElement = document.getElementById('logo');
         const yesButton = document.getElementById('yesButton');
         const noButton = document.getElementById('noButton');
+        const buttonsContainer = document.querySelector('.buttons-container');
 
         // Function to update the message text
         function updateText(newText) {
@@ -246,7 +275,18 @@
         // Function to update the yes button size
         function updateButtonSize(newSize) {
             buttonSize = newSize;
-            yesButton.style.fontSize = `${buttonSize}px`;
+            
+            // Cap the maximum button size to prevent overflow
+            const maxSize = Math.min(newSize, 48); // Cap at 48px to prevent overflow
+            
+            // Update font size
+            yesButton.style.fontSize = `${maxSize}px`;
+            
+            // Also adjust padding to keep button proportional
+            const padding = Math.max(12, maxSize / 2);
+            yesButton.style.padding = `${padding}px ${padding * 2}px`;
+            
+            console.log(`Yes button size: ${maxSize}px`);
         }
 
         // Yes button click handler
@@ -263,9 +303,6 @@
             const num = Math.floor(Math.random() * 4);
             updateText(sure[num]);
             updateButtonSize(buttonSize + 36);
-            
-            // Log to console (simulating React's console.log)
-            console.log(`Button size increased to: ${buttonSize + 36}px`);
         }
 
         // Add event listeners
