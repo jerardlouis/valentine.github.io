@@ -1,13 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title></title>
-  <link href="style.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day App</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: #282c34;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .App {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .App-header {
+            background-color: #282c34;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: calc(10px + 2vmin);
+            color: white;
+            padding: 20px;
+        }
+
+        .App-logo {
+            height: 300px;
+            width: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid #61dafb;
+        }
+
+        .message {
+            font-size: 28px;
+            margin-bottom: 30px;
+            min-height: 40px;
+            color: #ff6b9d;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .yes:hover {
+            background-color: #45a049;
+        }
+
+        .no {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .no:hover {
+            background-color: #d32f2f;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+            width: 100%;
+        }
+
+        .footer a {
+            color: #61dafb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .seo {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .App-logo {
+                height: 250px;
+                width: 250px;
+            }
+            
+            .message {
+                font-size: 24px;
+            }
+            
+            button {
+                padding: 10px 25px;
+                font-size: 16px;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .yes, .no {
+                width: 200px;
+            }
+        }
+
+        /* Animation for the HOORAY message */
+        @keyframes hooray {
+            0% { transform: scale(1); color: #ff6b9d; }
+            50% { transform: scale(1.1); color: #ff4081; }
+            100% { transform: scale(1); color: #ff6b9d; }
+        }
+
+        .hooray {
+            animation: hooray 0.5s ease-in-out 3;
+        }
+
+        /* Heart pulse animation for the logo when yes is clicked */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .heartbeat {
+            animation: heartbeat 1s infinite;
+            border-color: #ff4081;
+        }
+    </style>
 </head>
 <body>
+    <div class="App">
+        <header class="App-header">
+            <img id="logo" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWphMHVqczg1NHFocDN5bGk3a2Mzd2t4cnpzdGtzcjBjbDVhcjdmeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/SoZAMdHWldHbQHLCGZ/giphy.gif" class="App-logo" alt="Hello Kitty Valentine">
+            <p id="message" class="message">Will you be my valentine?</p>
+            <div class="buttons-container">
+                <button id="yesButton" class="yes" style="font-size: 16px;">
+                    Yes
+                </button>
+                <button id="noButton" class="no" style="font-size: 16px;">
+                    No
+                </button>
+            </div>
+        </header>
+        
+        <div class="footer">
+            <a href="http://fathomless-bayou-60027.herokuapp.com/">
+                <small>
+                    By Jerard Louis Dayanghirang Guevarra
+                    <br/>
+                    Click here to find me online!
+                </small>
+            </a>
+            <br/>
+            <small class="seo">
+                An app by Jerard Louis Dayanghirang Guevarra, software engineer and musician. 
+                @jerardlouis Jerard Louis Dayanghirang Guevarra @jerardlouis
+            </small>
+        </div>
+    </div>
 
-  <script src="app.js"></script>
+    <script>
+        // State variables (simulating React useState)
+        let text = 'Will you be my valentine?';
+        let img = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWphMHVqczg1NHFocDN5bGk3a2Mzd2t4cnpzdGtzcjBjbDVhcjdmeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/SoZAMdHWldHbQHLCGZ/giphy.gif";
+        let buttonSize = 16;
+        const sure = [
+            "Are you sure?", 
+            "Are you really sure?", 
+            "Are you really REALLY sure???", 
+            "Are you SURE you're sure that you're sure???"
+        ];
 
+        // DOM elements
+        const messageElement = document.getElementById('message');
+        const logoElement = document.getElementById('logo');
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+
+        // Function to update the message text
+        function updateText(newText) {
+            text = newText;
+            messageElement.textContent = text;
+            
+            // Add animation for HOORAY message
+            if (newText === 'HOORAY <3') {
+                messageElement.classList.add('hooray');
+                setTimeout(() => {
+                    messageElement.classList.remove('hooray');
+                }, 1500);
+            }
+        }
+
+        // Function to update the image
+        function updateImg(newImg) {
+            img = newImg;
+            logoElement.src = img;
+            
+            // Add animation when yes is clicked
+            if (newImg === "https://i.pinimg.com/originals/14/12/a6/1412a602c0cd0027a7c494967a564e7e.gif") {
+                logoElement.classList.add('heartbeat');
+            } else {
+                logoElement.classList.remove('heartbeat');
+            }
+        }
+
+        // Function to update the yes button size
+        function updateButtonSize(newSize) {
+            buttonSize = newSize;
+            yesButton.style.fontSize = `${buttonSize}px`;
+        }
+
+        // Yes button click handler
+        function yesClick() {
+            updateText('HOORAY <3');
+            updateImg("https://i.pinimg.com/originals/14/12/a6/1412a602c0cd0027a7c494967a564e7e.gif");
+            
+            // Reset button size
+            updateButtonSize(16);
+        }
+
+        // No button click handler
+        function noClick() {
+            const num = Math.floor(Math.random() * 4);
+            updateText(sure[num]);
+            updateButtonSize(buttonSize + 36);
+            
+            // Log to console (simulating React's console.log)
+            console.log(`Button size increased to: ${buttonSize + 36}px`);
+        }
+
+        // Add event listeners
+        yesButton.addEventListener('click', yesClick);
+        noButton.addEventListener('click', noClick);
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            updateText(text);
+            updateImg(img);
+            updateButtonSize(buttonSize);
+        });
+    </script>
 </body>
 </html>
