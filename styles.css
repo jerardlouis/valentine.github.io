@@ -1,0 +1,48 @@
+.App {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  background-color: #cf81ba;
+  color: white;
+  text-decoration: none;
+
+}
+a {
+  text-decoration: none;
+}
+.seo {
+  color:#cf81ba;
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+button {
+  color: white;
+  border-radius: 20%;
+  box-shadow: 0 2px 4px rgb(40, 23, 39);
+  padding: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+button:hover {
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
+}
+.yes {
+  background-color:green;
+}
+.no {
+  background-color:red;
+}
+
+.App-header {
+  background-color: #cf81ba;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
