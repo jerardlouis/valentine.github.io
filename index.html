@@ -13,22 +13,25 @@
             font-family: 'Arial', 'Helvetica', sans-serif;
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
-            background-color: #ffc0cb; /* Light pink */
-            min-height: 100vh;
+            background-color: #ffc0cb;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #8b0040; /* Deep pink */
+            color: #8b0040;
             text-align: center;
-            padding: 20px;
+            padding: 10px;
             position: relative;
-            overflow-x: hidden;
         }
 
         .hearts {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             pointer-events: none;
@@ -37,96 +40,94 @@
 
         .heart {
             position: absolute;
-            font-size: 24px;
-            color: rgba(219, 112, 147, 0.3); /* Pale violet red with transparency */
+            font-size: 18px;
+            color: rgba(219, 112, 147, 0.3);
             animation: float 8s infinite ease-in-out;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
         }
 
         .App {
-            max-width: 800px;
             width: 100%;
-            margin: 0 auto;
-            background-color: #ffb6c1; /* Light pink */
-            border-radius: 0; /* Square edges */
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(219, 112, 147, 0.3); /* Pale violet red shadow */
-            border: 5px solid #ff69b4; /* Hot pink border */
+            max-width: 500px;
+            background-color: #ffb6c1;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(219, 112, 147, 0.3);
+            border: 4px solid #ff69b4;
             position: relative;
             z-index: 1;
+            overflow: hidden;
         }
 
         .App-header {
-            min-height: 70vh;
+            min-height: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px 10px;
         }
 
         .App-logo {
-            height: 280px;
-            width: 280px;
+            width: 200px;
+            height: 200px;
             object-fit: cover;
-            border-radius: 0; /* Square edges */
-            margin-bottom: 30px;
-            box-shadow: 0 8px 20px rgba(219, 112, 147, 0.4);
-            border: 5px solid #ff1493; /* Deep pink */
-            transition: transform 0.3s ease;
-        }
-
-        .App-logo:hover {
-            transform: scale(1.03);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 15px rgba(219, 112, 147, 0.4);
+            border: 4px solid #ff1493;
         }
 
         .message {
-            font-size: 36px;
-            margin-bottom: 40px;
-            min-height: 50px;
+            font-size: 22px;
+            margin-bottom: 25px;
+            min-height: 40px;
             font-weight: bold;
-            color: #c71585; /* Medium violet red */
-            padding: 15px 25px;
-            background-color: #ffe4e9; /* Very light pink */
-            border: 3px solid #ff69b4; /* Hot pink */
-            border-radius: 0; /* Square edges */
-            transition: all 0.3s ease;
+            color: #c71585;
+            padding: 12px 18px;
+            background-color: #ffe4e9;
+            border: 3px solid #ff69b4;
+            border-radius: 10px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
         }
 
         .buttons-container {
             display: flex;
-            gap: 40px;
-            margin-top: 30px;
+            gap: 20px;
+            margin-top: 20px;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+            width: 100%;
         }
 
         button {
             border: none;
-            border-radius: 0; /* Square edges */
-            padding: 20px 40px;
-            font-size: 24px;
+            border-radius: 10px;
+            padding: 15px 25px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 150px;
-            min-height: 70px;
+            min-width: 120px;
+            min-height: 55px;
+            flex: 1;
+            max-width: 45%;
         }
 
         button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
         }
 
         button:active {
@@ -134,46 +135,46 @@
         }
 
         .yes {
-            background-color: #4CAF50; /* Solid green */
+            background-color: #4CAF50;
             color: white;
-            border: 3px solid #388E3C; /* Darker green border */
+            border: 3px solid #388E3C;
         }
 
         .yes:hover {
-            background-color: #45a049; /* Slightly darker green on hover */
+            background-color: #45a049;
         }
 
         .no {
-            background-color: #f44336; /* Solid red */
+            background-color: #f44336;
             color: white;
-            border: 3px solid #d32f2f; /* Darker red border */
+            border: 3px solid #d32f2f;
         }
 
         .no:hover {
-            background-color: #e53935; /* Slightly darker red on hover */
+            background-color: #e53935;
         }
 
         .footer {
-            margin-top: 40px;
-            padding: 20px;
+            margin-top: 25px;
+            padding: 15px;
             text-align: center;
-            font-size: 16px;
-            color: #8b0040; /* Deep pink */
+            font-size: 14px;
+            color: #8b0040;
             width: 100%;
-            background-color: #ffe4e9; /* Very light pink */
-            border-radius: 0; /* Square edges */
-            border: 3px solid #ff69b4; /* Hot pink */
+            background-color: #ffe4e9;
+            border-radius: 10px;
+            border: 3px solid #ff69b4;
         }
 
         .footer a {
-            color: #c71585; /* Medium violet red */
+            color: #c71585;
             text-decoration: none;
             transition: color 0.3s;
             font-weight: bold;
         }
 
         .footer a:hover {
-            color: #8b0040; /* Deep pink */
+            color: #8b0040;
             text-decoration: underline;
         }
 
@@ -182,10 +183,10 @@
         }
 
         .valentine-heart {
-            font-size: 40px;
-            margin-bottom: 10px;
+            font-size: 30px;
+            margin-bottom: 8px;
             animation: heartbeat 1.5s infinite;
-            color: #ff1493; /* Deep pink */
+            color: #ff1493;
         }
 
         @keyframes heartbeat {
@@ -193,70 +194,98 @@
             50% { transform: scale(1.1); }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            .App {
+                padding: 15px;
+                max-width: 95%;
+            }
+            
             .App-logo {
-                height: 220px;
-                width: 220px;
+                width: 180px;
+                height: 180px;
+                margin-bottom: 15px;
             }
             
             .message {
-                font-size: 28px;
-                padding: 12px 20px;
-            }
-            
-            button {
-                padding: 15px 30px;
                 font-size: 20px;
-                min-width: 130px;
-                min-height: 60px;
+                padding: 10px 15px;
+                margin-bottom: 20px;
             }
             
             .buttons-container {
-                gap: 20px;
+                gap: 15px;
                 flex-direction: row;
             }
             
+            button {
+                padding: 12px 20px;
+                font-size: 16px;
+                min-width: 110px;
+                min-height: 50px;
+                max-width: 45%;
+            }
+            
             .valentine-heart {
-                font-size: 30px;
+                font-size: 26px;
+            }
+            
+            .footer {
+                padding: 12px;
+                font-size: 13px;
+                margin-top: 20px;
             }
         }
 
-        @media (max-width: 400px) {
-            .buttons-container {
-                flex-direction: column;
-                gap: 15px;
+        @media (max-height: 700px) {
+            .App-logo {
+                width: 160px;
+                height: 160px;
             }
             
-            button {
-                width: 200px;
+            .message {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            
+            .buttons-container {
+                margin-top: 15px;
+            }
+            
+            .footer {
+                margin-top: 15px;
+                padding: 10px;
             }
         }
 
         /* Animation for the HOORAY message */
         @keyframes hooray {
             0% { transform: scale(1); }
-            25% { transform: scale(1.3) rotate(-5deg); }
-            50% { transform: scale(1.2) rotate(5deg); }
-            75% { transform: scale(1.3) rotate(-5deg); }
+            25% { transform: scale(1.2) rotate(-5deg); }
+            50% { transform: scale(1.15) rotate(5deg); }
+            75% { transform: scale(1.2) rotate(-5deg); }
             100% { transform: scale(1); }
         }
 
         .hooray {
-            animation: hooray 0.8s ease-in-out 3;
-            color: #ff1493; /* Deep pink */
-            background-color: #ffd1dc; /* Light pink */
+            animation: hooray 0.8s ease-in-out 2;
+            color: #ff1493;
+            background-color: #ffd1dc;
         }
 
         /* Heart pulse animation for the logo when yes is clicked */
         @keyframes logoHeartbeat {
             0% { transform: scale(1); border-color: #ff1493; }
-            50% { transform: scale(1.05); border-color: #ff69b4; }
+            50% { transform: scale(1.03); border-color: #ff69b4; }
             100% { transform: scale(1); border-color: #ff1493; }
         }
 
         .heartbeat {
             animation: logoHeartbeat 1s infinite;
-            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
         }
     </style>
 </head>
@@ -279,7 +308,7 @@
         </header>
         
         <div class="footer">
-            <a href="http://fathomless-bayou-60027.herokuapp.com/">
+            <a href="http://jerardlouis.github.io/">
                 <small>
                     💖 By Jerard Louis Dayanghirang Guevarra
                     <br/>
@@ -298,13 +327,13 @@
         // State variables
         let text = 'Will you be my valentine? 💕';
         let img = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWphMHVqczg1NHFocDN5bGk3a2Mzd2t4cnpzdGtzcjBjbDVhcjdmeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/SoZAMdHWldHbQHLCGZ/giphy.gif";
-        let yesSize = 24;
-        let noSize = 24;
+        let yesSize = 18;
+        let noSize = 18;
         const sure = [
             "Are you sure? 💔", 
-            "Are you really sure? 😢", 
-            "Are you really REALLY sure??? 😭", 
-            "Are you SURE you're sure that you're sure??? 💔😭"
+            "Really sure? 😢", 
+            "Really REALLY sure??? 😭", 
+            "SURE you're sure??? 💔😭"
         ];
 
         // DOM elements
@@ -316,37 +345,42 @@
 
         // Create floating hearts
         function createHearts() {
-            const hearts = ['💖', '💗', '💓', '💞', '💕', '❣️', '❤️', '🧡', '💛', '💚', '💙', '💜'];
+            const hearts = ['💖', '💗', '💓', '💞', '💕', '❣️', '❤️'];
             
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 10; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
                 heart.style.left = `${Math.random() * 100}%`;
                 heart.style.top = `${Math.random() * 100}%`;
                 heart.style.animationDelay = `${Math.random() * 5}s`;
-                heart.style.fontSize = `${Math.random() * 20 + 15}px`;
+                heart.style.fontSize = `${Math.random() * 12 + 12}px`;
                 heartsContainer.appendChild(heart);
             }
         }
 
         // Update button sizes
         function updateButtonSizes() {
-            // Yes button gets bigger
-            yesButton.style.fontSize = `${yesSize}px`;
-            yesButton.style.padding = `${yesSize * 0.8}px ${yesSize * 1.5}px`;
-            yesButton.style.minWidth = `${yesSize * 6}px`;
-            yesButton.style.minHeight = `${yesSize * 2.5}px`;
+            // Cap maximum sizes for mobile
+            const maxYesSize = window.innerWidth < 480 ? 36 : 42;
+            const minNoSize = window.innerWidth < 480 ? 8 : 10;
             
-            // No button gets smaller (but not too small)
-            const noButtonSize = Math.max(10, 24 - (yesSize - 24) / 2);
-            noButton.style.fontSize = `${noButtonSize}px`;
-            noButton.style.padding = `${noButtonSize * 0.8}px ${noButtonSize * 1.5}px`;
-            noButton.style.minWidth = `${noButtonSize * 6}px`;
-            noButton.style.minHeight = `${noButtonSize * 2.5}px`;
+            // Apply sizes with limits
+            const currentYesSize = Math.min(yesSize, maxYesSize);
+            const currentNoSize = Math.max(minNoSize, 18 - (yesSize - 18) / 3);
             
-            // Update message font size to match yes button
-            messageElement.style.fontSize = `${Math.min(48, yesSize + 12)}px`;
+            yesButton.style.fontSize = `${currentYesSize}px`;
+            yesButton.style.padding = `${currentYesSize * 0.7}px ${currentYesSize * 1.2}px`;
+            yesButton.style.minWidth = `${currentYesSize * 5}px`;
+            yesButton.style.minHeight = `${currentYesSize * 2}px`;
+            
+            noButton.style.fontSize = `${currentNoSize}px`;
+            noButton.style.padding = `${currentNoSize * 0.7}px ${currentNoSize * 1.2}px`;
+            noButton.style.minWidth = `${currentNoSize * 5}px`;
+            noButton.style.minHeight = `${currentNoSize * 2}px`;
+            
+            // Update message font size to match yes button (capped)
+            messageElement.style.fontSize = `${Math.min(28, currentYesSize + 6)}px`;
         }
 
         // Function to update the message text
@@ -359,7 +393,7 @@
                 messageElement.classList.add('hooray');
                 setTimeout(() => {
                     messageElement.classList.remove('hooray');
-                }, 2400);
+                }, 1600);
             }
         }
 
@@ -378,12 +412,12 @@
 
         // Yes button click handler
         function yesClick() {
-            updateText('HOORAY! You made me so happy! 💖😊');
+            updateText('HOORAY! You made me happy! 💖😊');
             updateImg("https://i.pinimg.com/originals/14/12/a6/1412a602c0cd0027a7c494967a564e7e.gif");
             
             // Reset button sizes
-            yesSize = 24;
-            noSize = 24;
+            yesSize = 18;
+            noSize = 18;
             updateButtonSizes();
         }
 
@@ -393,19 +427,20 @@
             updateText(sure[num]);
             
             // Yes button gets bigger, No button gets smaller
-            yesSize += 12;
+            yesSize += 8;
             
-            // Cap the maximum yes button size
-            if (yesSize > 72) {
-                yesSize = 72;
-            }
-            
+            updateButtonSizes();
+        }
+
+        // Handle window resize
+        function handleResize() {
             updateButtonSizes();
         }
 
         // Add event listeners
         yesButton.addEventListener('click', yesClick);
         noButton.addEventListener('click', noClick);
+        window.addEventListener('resize', handleResize);
 
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
