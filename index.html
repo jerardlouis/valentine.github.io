@@ -10,56 +10,45 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-        }
-
-        body {
-            background-color: #282c34;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            padding: 20px;
         }
 
         .App {
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            background-color: #cf81ba;
+            color: white;
+            text-decoration: none;
+            min-height: 100vh;
         }
 
-        .App-header {
-            background-color: #282c34;
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: calc(10px + 2vmin);
+        a {
+            text-decoration: none;
             color: white;
-            padding: 20px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .seo {
+            color: #cf81ba;
+            display: none;
         }
 
         .App-logo {
-            height: 300px;
-            width: 300px;
-            object-fit: cover;
+            height: 40vmin;
+            pointer-events: none;
             border-radius: 10px;
             margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            border: 2px solid #61dafb;
+            box-shadow: 0 5px 15px rgba(40, 23, 39, 0.4);
         }
 
         .message {
-            font-size: 28px;
+            font-size: calc(10px + 2vmin);
             margin-bottom: 30px;
             min-height: 40px;
-            color: #ff6b9d;
-            font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 4px rgba(40, 23, 39, 0.3);
         }
 
         .buttons-container {
@@ -71,19 +60,22 @@
         }
 
         button {
-            border: none;
-            border-radius: 8px;
-            padding: 12px 30px;
-            font-size: 18px;
+            color: white;
+            border-radius: 20%;
+            box-shadow: 0 2px 4px rgb(40, 23, 39);
+            padding: 12px 25px;
+            font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
+            border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
         }
 
         button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+            color: rgba(255, 255, 255, 1);
+            box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
+            transform: translateY(-2px);
         }
 
         button:active {
@@ -91,93 +83,87 @@
         }
 
         .yes {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .yes:hover {
-            background-color: #45a049;
+            background-color: green;
         }
 
         .no {
-            background-color: #f44336;
-            color: white;
+            background-color: red;
         }
 
-        .no:hover {
-            background-color: #d32f2f;
+        .App-header {
+            background-color: #cf81ba;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: calc(10px + 2vmin);
+            color: white;
+            padding: 20px;
         }
 
         .footer {
-            margin-top: 40px;
-            padding: 20px;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
             text-align: center;
             font-size: 14px;
-            color: #aaa;
-            width: 100%;
+            padding: 0 20px;
         }
 
-        .footer a {
-            color: #61dafb;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer a:hover {
-            color: #ffffff;
-            text-decoration: underline;
-        }
-
-        .seo {
-            display: none;
-        }
-
-        @media (max-width: 600px) {
-            .App-logo {
-                height: 250px;
-                width: 250px;
-            }
-            
-            .message {
-                font-size: 24px;
-            }
-            
-            button {
-                padding: 10px 25px;
-                font-size: 16px;
-            }
-            
-            .buttons-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .yes, .no {
-                width: 200px;
-            }
+        .footer small {
+            display: block;
+            margin-bottom: 10px;
         }
 
         /* Animation for the HOORAY message */
         @keyframes hooray {
-            0% { transform: scale(1); color: #ff6b9d; }
-            50% { transform: scale(1.1); color: #ff4081; }
-            100% { transform: scale(1); color: #ff6b9d; }
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .hooray {
             animation: hooray 0.5s ease-in-out 3;
+            color: #fff;
         }
 
         /* Heart pulse animation for the logo when yes is clicked */
         @keyframes heartbeat {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            25% { transform: scale(1.05); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.03); }
             100% { transform: scale(1); }
         }
 
         .heartbeat {
             animation: heartbeat 1s infinite;
-            border-color: #ff4081;
+            box-shadow: 0 5px 20px rgba(255, 105, 180, 0.6);
+        }
+
+        @media (max-width: 600px) {
+            .App-logo {
+                height: 50vmin;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .yes, .no {
+                width: 150px;
+                padding: 15px 0;
+            }
+            
+            .footer {
+                position: relative;
+                bottom: auto;
+                margin-top: 30px;
+                padding-bottom: 20px;
+            }
         }
     </style>
 </head>
@@ -194,22 +180,22 @@
                     No
                 </button>
             </div>
-        </header>
-        
-        <div class="footer">
-            <a href="http://fathomless-bayou-60027.herokuapp.com/">
-                <small>
-                    By Jerard Louis Dayanghirang Guevarra
-                    <br/>
-                    Click here to find me online!
+            
+            <div class="footer">
+                <a href="http://fathomless-bayou-60027.herokuapp.com/">
+                    <small>
+                        By Jerard Louis Dayanghirang Guevarra
+                        <br/>
+                        Click here to find me online!
+                    </small>
+                </a>
+                <br/>
+                <small class="seo">
+                    An app by Jerard Louis Dayanghirang Guevarra, software engineer and musician. 
+                    @jerardlouis Jerard Louis Dayanghirang Guevarra @jerardlouis
                 </small>
-            </a>
-            <br/>
-            <small class="seo">
-                An app by Jerard Louis Dayanghirang Guevarra, software engineer and musician. 
-                @jerardlouis Jerard Louis Dayanghirang Guevarra @jerardlouis
-            </small>
-        </div>
+            </div>
+        </header>
     </div>
 
     <script>
