@@ -99,30 +99,34 @@
 
         .buttons-container {
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            gap: 15px;
             margin-top: 20px;
-            flex-wrap: wrap;
+            align-items: center;
+            width: 100%;
+            transition: all 0.5s ease;
+        }
+
+        .buttons-row {
+            display: flex;
+            gap: 20px;
             justify-content: center;
             align-items: center;
             width: 100%;
+            transition: all 0.5s ease;
         }
 
         button {
             border: none;
             border-radius: 10px;
-            padding: 15px 25px;
-            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 120px;
-            min-height: 55px;
-            flex: 1;
-            max-width: 45%;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         button:hover {
@@ -138,6 +142,7 @@
             background-color: #4CAF50;
             color: white;
             border: 3px solid #388E3C;
+            order: 1;
         }
 
         .yes:hover {
@@ -148,10 +153,19 @@
             background-color: #f44336;
             color: white;
             border: 3px solid #d32f2f;
+            order: 2;
+            opacity: 1;
+            transition: all 0.5s ease;
         }
 
         .no:hover {
             background-color: #e53935;
+        }
+
+        .no.hidden {
+            opacity: 0;
+            transform: scale(0);
+            pointer-events: none;
         }
 
         .footer {
@@ -216,17 +230,9 @@
                 margin-bottom: 20px;
             }
             
-            .buttons-container {
+            .buttons-row {
                 gap: 15px;
                 flex-direction: row;
-            }
-            
-            button {
-                padding: 12px 20px;
-                font-size: 16px;
-                min-width: 110px;
-                min-height: 50px;
-                max-width: 45%;
             }
             
             .valentine-heart {
@@ -297,13 +303,15 @@
             <div class="valentine-heart">💖</div>
             <img id="logo" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWphMHVqczg1NHFocDN5bGk3a2Mzd2t4cnpzdGtzcjBjbDVhcjdmeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/SoZAMdHWldHbQHLCGZ/giphy.gif" class="App-logo" alt="Hello Kitty Valentine">
             <p id="message" class="message">Will you be my valentine? 💕</p>
-            <div class="buttons-container">
-                <button id="yesButton" class="yes">
-                    Yes 💖
-                </button>
-                <button id="noButton" class="no">
-                    No 💔
-                </button>
+            <div class="buttons-container" id="buttonsContainer">
+                <div class="buttons-row" id="buttonsRow">
+                    <button id="yesButton" class="yes">
+                        Yes 💖
+                    </button>
+                    <button id="noButton" class="no">
+                        No 💔
+                    </button>
+                </div>
             </div>
         </header>
         
@@ -329,11 +337,16 @@
         let img = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWphMHVqczg1NHFocDN5bGk3a2Mzd2t4cnpzdGtzcjBjbDVhcjdmeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/SoZAMdHWldHbQHLCGZ/giphy.gif";
         let yesSize = 18;
         let noSize = 18;
+        let noClickCount = 0;
         const sure = [
             "Are you sure? 💔", 
             "Really sure? 😢", 
             "Really REALLY sure??? 😭", 
-            "SURE you're sure??? 💔😭"
+            "SURE you're sure??? 💔😭",
+            "Pretty please? 🥺",
+            "I'll be so sad... 😞",
+            "My heart is breaking... 💔",
+            "Last chance... 🙏"
         ];
 
         // DOM elements
@@ -341,6 +354,8 @@
         const logoElement = document.getElementById('logo');
         const yesButton = document.getElementById('yesButton');
         const noButton = document.getElementById('noButton');
+        const buttonsRow = document.getElementById('buttonsRow');
+        const buttonsContainer = document.getElementById('buttonsContainer');
         const heartsContainer = document.getElementById('heartsContainer');
 
         // Create floating hearts
@@ -359,28 +374,63 @@
             }
         }
 
-        // Update button sizes
-        function updateButtonSizes() {
-            // Cap maximum sizes for mobile
-            const maxYesSize = window.innerWidth < 480 ? 36 : 42;
-            const minNoSize = window.innerWidth < 480 ? 8 : 10;
+        // Update button sizes and layout
+        function updateButtonLayout() {
+            // Cap maximum sizes
+            const maxYesSize = window.innerWidth < 480 ? 42 : 48;
+            const minNoSize = window.innerWidth < 480 ? 10 : 12;
             
-            // Apply sizes with limits
+            // Calculate sizes
             const currentYesSize = Math.min(yesSize, maxYesSize);
-            const currentNoSize = Math.max(minNoSize, 18 - (yesSize - 18) / 3);
+            const currentNoSize = Math.max(minNoSize, 18 - (yesSize - 18) / 4);
             
+            // Update Yes button
             yesButton.style.fontSize = `${currentYesSize}px`;
             yesButton.style.padding = `${currentYesSize * 0.7}px ${currentYesSize * 1.2}px`;
             yesButton.style.minWidth = `${currentYesSize * 5}px`;
             yesButton.style.minHeight = `${currentYesSize * 2}px`;
             
+            // Update No button
             noButton.style.fontSize = `${currentNoSize}px`;
             noButton.style.padding = `${currentNoSize * 0.7}px ${currentNoSize * 1.2}px`;
             noButton.style.minWidth = `${currentNoSize * 5}px`;
             noButton.style.minHeight = `${currentNoSize * 2}px`;
             
-            // Update message font size to match yes button (capped)
+            // Update message font size to match yes button
             messageElement.style.fontSize = `${Math.min(28, currentYesSize + 6)}px`;
+            
+            // Check if Yes button is getting too large
+            const yesButtonWidth = currentYesSize * 5;
+            const containerWidth = buttonsRow.offsetWidth;
+            
+            // If Yes button takes more than 60% of container width, move No button below
+            if (yesButtonWidth > containerWidth * 0.6) {
+                buttonsRow.style.flexDirection = 'column';
+                buttonsRow.style.gap = '20px';
+                buttonsRow.style.alignItems = 'center';
+                
+                // Center Yes button and put No button below
+                yesButton.style.order = 1;
+                noButton.style.order = 2;
+                
+                // If Yes button is very large, start shrinking No button more
+                if (yesButtonWidth > containerWidth * 0.8) {
+                    noButton.style.opacity = '0.7';
+                    noButton.style.transform = 'scale(0.9)';
+                }
+                
+                // If Yes button is almost filling container, hide No button
+                if (yesButtonWidth > containerWidth * 0.9 || noClickCount >= 7) {
+                    noButton.classList.add('hidden');
+                }
+            } else {
+                // Reset to side-by-side layout
+                buttonsRow.style.flexDirection = 'row';
+                buttonsRow.style.gap = '20px';
+                noButton.style.opacity = '1';
+                noButton.style.transform = 'scale(1)';
+                noButton.classList.remove('hidden');
+            }
         }
 
         // Function to update the message text
@@ -415,26 +465,33 @@
             updateText('HOORAY! You made me happy! 💖😊');
             updateImg("https://i.pinimg.com/originals/14/12/a6/1412a602c0cd0027a7c494967a564e7e.gif");
             
-            // Reset button sizes
+            // Reset button sizes and layout
             yesSize = 18;
             noSize = 18;
-            updateButtonSizes();
+            noClickCount = 0;
+            updateButtonLayout();
         }
 
         // No button click handler
         function noClick() {
-            const num = Math.floor(Math.random() * 4);
+            const num = Math.min(noClickCount, sure.length - 1);
             updateText(sure[num]);
             
-            // Yes button gets bigger, No button gets smaller
+            // Yes button gets bigger
             yesSize += 8;
+            noClickCount++;
             
-            updateButtonSizes();
+            updateButtonLayout();
+            
+            // If No button is hidden, show a sad message
+            if (noButton.classList.contains('hidden')) {
+                updateText("Oh no... 💔😭 Please say yes... 🥺");
+            }
         }
 
         // Handle window resize
         function handleResize() {
-            updateButtonSizes();
+            updateButtonLayout();
         }
 
         // Add event listeners
@@ -446,7 +503,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             updateText(text);
             updateImg(img);
-            updateButtonSizes();
+            updateButtonLayout();
             createHearts();
         });
     </script>
