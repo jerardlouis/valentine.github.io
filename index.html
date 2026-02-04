@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Will You Be My Valentine? 💕</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em" font-size=%2290%22>💖</text></svg>">
     <style>
         * {
             margin: 0;
@@ -189,6 +189,7 @@
             align-items: center;
             width: 100%;
             transition: all 0.5s ease;
+            position: relative;
         }
 
         button {
@@ -196,7 +197,7 @@
             border-radius: 20px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -238,14 +239,24 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            width: auto;
         }
 
         .yes.growing {
-            flex: 2;
-            max-width: 300px;
-            font-size: 24px !important;
-            min-height: 70px !important;
-            z-index: 5;
+            flex: none;
+            width: auto;
+            transition: all 0.5s ease;
+        }
+
+        .yes.full-width {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 100% !important;
+            flex: none !important;
+            font-size: 32px !important;
+            min-height: 80px !important;
+            border-radius: 25px !important;
+            box-shadow: 0 8px 30px rgba(76, 175, 80, 0.6) !important;
         }
 
         .yes.overflowing {
@@ -297,6 +308,8 @@
             border: 3px solid #EF9A9A;
             opacity: 1;
             transition: all 0.5s ease;
+            width: auto;
+            flex: none;
         }
 
         .no:hover {
@@ -526,7 +539,6 @@
         // State variables
         let text = 'Will you be my valentine? 💕';
         let img = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWphMHVqczg1NHFocDN5bGk3a2Mzd2t4cnpzdGtzcjBjbDVhcjdmeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/SoZAMdHWldHbQHLCGZ/giphy.gif";
-        let yesSize = 18;
         let noClickCount = 0;
         const sure = [
             "Are you sure?", 
@@ -541,6 +553,7 @@
         const yesButton = document.getElementById('yesButton');
         const noButton = document.getElementById('noButton');
         const buttonsContainer = document.getElementById('buttonsContainer');
+        const buttonsRow = document.getElementById('buttonsRow');
         const gifContainer = document.querySelector('.gif-container');
         const heartsContainer = document.getElementById('heartsContainer');
         const footer = document.getElementById('footer');
@@ -564,36 +577,64 @@
 
         // Update button sizes and layout
         function updateButtonLayout() {
-            // Yes button grows faster as No button disappears
-            yesSize += 8;
+            const containerWidth = buttonsContainer.offsetWidth;
             
-            // Calculate No button shrink factor (disappears in 6-7 clicks)
-            const shrinkFactor = Math.max(0, 1 - (noClickCount * 0.16)); // Disappears in ~6 clicks
-            const noFontSize = Math.max(0, 18 * shrinkFactor);
+            // Calculate growth stages (6-7 clicks total)
+            const totalClicks = 6; // Target 6 clicks to fill screen
+            const currentStage = Math.min(noClickCount, totalClicks);
+            const stageProgress = currentStage / totalClicks; // 0 to 1
             
-            // Update No button (shrinks gradually)
-            if (noClickCount < 6) {
-                // No button is still visible
+            // Update Yes button (gradually gets wider)
+            if (noClickCount < totalClicks) {
+                // Yes button is growing but No button still visible
+                yesButton.classList.remove('overflowing');
+                yesButton.classList.add('growing');
+                
+                // Calculate Yes button width progression
+                const minWidth = 160; // Starting width
+                const maxWidth = containerWidth * 0.95; // Almost full container width
+                const currentWidth = minWidth + (maxWidth - minWidth) * stageProgress;
+                
+                // Calculate font size progression
+                const minFontSize = 18;
+                const maxFontSize = 30;
+                const currentFontSize = minFontSize + (maxFontSize - minFontSize) * stageProgress;
+                
+                // Apply styles to Yes button
+                yesButton.style.width = `${currentWidth}px`;
+                yesButton.style.fontSize = `${currentFontSize}px`;
+                yesButton.style.padding = `${currentFontSize * 0.8}px ${currentFontSize * 1.5}px`;
+                yesButton.style.minHeight = `${currentFontSize * 2}px`;
+                
+                // Update No button (gradually gets smaller)
+                const noShrinkFactor = 1 - stageProgress;
+                const noFontSize = Math.max(10, 18 * noShrinkFactor);
+                
                 noButton.classList.remove('hidden');
                 noButton.style.display = 'flex';
+                noButton.style.width = `${160 * noShrinkFactor}px`;
                 noButton.style.fontSize = `${noFontSize}px`;
                 noButton.style.padding = `${noFontSize * 0.6}px ${noFontSize * 1.2}px`;
                 noButton.style.minHeight = `${noFontSize * 1.8}px`;
-                noButton.style.opacity = `${shrinkFactor}`;
-                noButton.style.transform = `scale(${shrinkFactor})`;
+                noButton.style.opacity = `${noShrinkFactor}`;
+                noButton.style.transform = `scale(${noShrinkFactor})`;
                 
-                // Update Yes button (grows but doesn't take over)
-                yesButton.classList.remove('overflowing');
-                yesButton.classList.add('growing');
-                yesButton.style.fontSize = `${Math.min(30, yesSize)}px`;
-                yesButton.style.flex = '2';
-                //yesButton.style.maxWidth = '300px';
-                yesButton.style.minHeight = '70px';
-                
-                // Switch to column layout when Yes gets big enough
-                if (yesSize > 25) {
+                // Switch to column layout when Yes button gets wide enough
+                if (currentWidth > containerWidth * 0.6) {
                     buttonsRow.style.flexDirection = 'column';
                     buttonsRow.style.gap = '10px';
+                    buttonsRow.style.alignItems = 'center';
+                } else {
+                    buttonsRow.style.flexDirection = 'row';
+                    buttonsRow.style.gap = '15px';
+                }
+                
+                // When Yes button is almost full width, make it full-width
+                if (currentWidth > containerWidth * 0.9) {
+                    yesButton.classList.add('full-width');
+                    yesButton.style.width = '100%';
+                } else {
+                    yesButton.classList.remove('full-width');
                 }
                 
                 // Keep other content visible
@@ -608,8 +649,8 @@
                 noButton.style.display = 'none';
                 messageElement.textContent = "You can't say no anymore! 😭💘";
                 
-                // Now Yes button can take over the screen
-                yesButton.classList.remove('growing');
+                // Yes button takes over the screen
+                yesButton.classList.remove('growing', 'full-width');
                 yesButton.classList.add('overflowing');
                 
                 // Hide other elements
@@ -619,8 +660,10 @@
                 footer.style.opacity = '0.2';
             }
             
-            // Update message font size
-            messageElement.style.fontSize = `${Math.min(24, yesSize * 0.5)}px`;
+            // Keep message size constant
+            messageElement.style.fontSize = '22px';
+            messageElement.style.padding = '12px 18px';
+            messageElement.style.minHeight = '40px';
             
             // Ensure footer stays visible
             ensureFooterVisibility();
@@ -684,16 +727,13 @@
             updateImg("https://i.pinimg.com/originals/14/12/a6/1412a602c0cd0027a7c494967a564e7e.gif");
             
             // Reset everything
-            yesSize = 18;
             noClickCount = 0;
             
             // Reset all styles
-            yesButton.classList.remove('growing', 'overflowing');
+            yesButton.classList.remove('growing', 'full-width', 'overflowing');
             yesButton.style.fontSize = '18px';
             yesButton.style.padding = '15px 30px';
             yesButton.style.minHeight = '55px';
-            yesButton.style.flex = '1';
-            yesButton.style.maxWidth = '160px';
             yesButton.style.width = '';
             yesButton.style.height = '';
             yesButton.style.position = '';
@@ -705,6 +745,7 @@
             yesButton.style.borderRadius = '20px';
             yesButton.style.animation = '';
             yesButton.style.border = '3px solid #A5D6A7';
+            yesButton.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.2)';
             
             noButton.classList.remove('hidden', 'shrinking');
             noButton.style.display = 'flex';
@@ -713,11 +754,16 @@
             noButton.style.fontSize = '18px';
             noButton.style.padding = '15px 30px';
             noButton.style.minHeight = '55px';
-            noButton.style.flex = '1';
-            noButton.style.maxWidth = '160px';
+            noButton.style.width = '';
             
             buttonsRow.style.flexDirection = 'row';
             buttonsRow.style.gap = '15px';
+            buttonsRow.style.alignItems = 'center';
+            
+            // Reset message styles
+            messageElement.style.fontSize = '22px';
+            messageElement.style.padding = '12px 18px';
+            messageElement.style.minHeight = '40px';
             
             gifContainer.style.opacity = '1';
             messageElement.style.opacity = '1';
