@@ -10,24 +10,39 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', 'Helvetica', sans-serif;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', 'Arial', sans-serif;
         }
 
         html, body {
             height: 100%;
+            width: 100%;
             overflow: hidden;
+            position: fixed;
         }
 
         body {
-            background-color: #ffc0cb;
+            background: url('https://images2.alphacoders.com/135/1357958.png') center/cover no-repeat fixed;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #8b0040;
+            color: white;
             text-align: center;
-            padding: 10px;
             position: relative;
+            padding: 15px;
+        }
+
+        /* Overlay for better readability */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 182, 193, 0.7);
+            backdrop-filter: blur(3px);
+            z-index: 0;
         }
 
         .hearts {
@@ -35,32 +50,79 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
+            z-index: 1;
         }
 
         .heart {
             position: absolute;
-            font-size: 18px;
-            color: rgba(219, 112, 147, 0.3);
-            animation: float 8s infinite ease-in-out;
+            font-size: 24px;
+            color: rgba(255, 105, 180, 0.6);
+            animation: float 10s infinite ease-in-out;
+            text-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(10deg); }
+            0%, 100% { 
+                transform: translateY(0) translateX(0) rotate(0deg); 
+                opacity: 0.8;
+            }
+            25% { 
+                transform: translateY(-30px) translateX(10px) rotate(10deg); 
+                opacity: 1;
+            }
+            50% { 
+                transform: translateY(-15px) translateX(-10px) rotate(-5deg); 
+                opacity: 0.9;
+            }
+            75% { 
+                transform: translateY(-40px) translateX(5px) rotate(15deg); 
+                opacity: 1;
+            }
         }
 
         .App {
             width: 100%;
-            max-width: 500px;
-            background-color: #ffb6c1;
-            border-radius: 15px;
+            max-width: 450px;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.95), rgba(255, 105, 180, 0.95));
+            border-radius: 25px;
             padding: 20px;
-            box-shadow: 0 8px 20px rgba(219, 112, 147, 0.3);
-            border: 4px solid #ff69b4;
+            box-shadow: 
+                0 0 40px rgba(255, 105, 180, 0.6),
+                0 10px 30px rgba(255, 20, 147, 0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
+            border: 4px solid white;
             position: relative;
-            z-index: 1;
+            z-index: 2;
             overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .App::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                #ff69b4, #ff1493, #ffb6c1, 
+                #ff69b4, #ff1493, #ffb6c1);
+            border-radius: 27px;
+            z-index: -1;
+            animation: glow 3s ease-in-out infinite alternate;
+            filter: blur(10px);
+            opacity: 0.7;
+        }
+
+        @keyframes glow {
+            0% {
+                opacity: 0.5;
+                box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+            }
+            100% {
+                opacity: 0.8;
+                box-shadow: 0 0 50px rgba(255, 20, 147, 0.7);
+            }
         }
 
         .App-header {
@@ -72,29 +134,64 @@
             padding: 15px 10px;
         }
 
+        /* Glowing box around the gif */
+        .gif-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin-bottom: 25px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 0 4px white,
+                0 0 0 8px rgba(255, 105, 180, 0.5),
+                0 0 30px rgba(255, 20, 147, 0.6),
+                inset 0 0 20px rgba(255, 255, 255, 0.4);
+            animation: gifGlow 2s ease-in-out infinite alternate;
+            background: linear-gradient(45deg, #ffb6c1, #ff69b4, #ff1493);
+            padding: 8px;
+        }
+
+        @keyframes gifGlow {
+            0% {
+                box-shadow: 
+                    0 0 0 4px white,
+                    0 0 0 8px rgba(255, 105, 180, 0.5),
+                    0 0 25px rgba(255, 20, 147, 0.5),
+                    inset 0 0 15px rgba(255, 255, 255, 0.3);
+            }
+            100% {
+                box-shadow: 
+                    0 0 0 4px white,
+                    0 0 0 8px rgba(255, 105, 180, 0.7),
+                    0 0 40px rgba(255, 20, 147, 0.8),
+                    inset 0 0 25px rgba(255, 255, 255, 0.5);
+            }
+        }
+
         .App-logo {
-            width: 200px;
-            height: 200px;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 6px 15px rgba(219, 112, 147, 0.4);
-            border: 4px solid #ff1493;
+            border-radius: 15px;
+            border: 2px solid white;
         }
 
         .message {
-            font-size: 22px;
+            font-size: 24px;
             margin-bottom: 25px;
             min-height: 40px;
             font-weight: bold;
-            color: #c71585;
-            padding: 12px 18px;
-            background-color: #ffe4e9;
-            border: 3px solid #ff69b4;
-            border-radius: 10px;
+            color: white;
+            padding: 15px 20px;
+            background: linear-gradient(45deg, rgba(255, 20, 147, 0.8), rgba(255, 105, 180, 0.8));
+            border: 3px solid white;
+            border-radius: 15px;
             word-wrap: break-word;
             overflow-wrap: break-word;
             max-width: 100%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
         }
 
         .buttons-container {
@@ -118,48 +215,62 @@
 
         button {
             border: none;
-            border-radius: 10px;
+            border-radius: 20px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.5s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
         }
 
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+            transform: translateY(-5px) scale(1.05);
         }
 
         button:active {
-            transform: translateY(1px);
+            transform: translateY(2px) scale(0.98);
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            border-radius: 20px;
         }
 
         .yes {
-            background-color: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
             color: white;
-            border: 3px solid #388E3C;
+            border: 3px solid #A5D6A7;
             order: 1;
         }
 
         .yes:hover {
-            background-color: #45a049;
+            background: linear-gradient(135deg, #66BB6A, #388E3C);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
         }
 
         .no {
-            background-color: #f44336;
+            background: linear-gradient(135deg, #f44336, #c62828);
             color: white;
-            border: 3px solid #d32f2f;
+            border: 3px solid #EF9A9A;
             order: 2;
             opacity: 1;
             transition: all 0.5s ease;
         }
 
         .no:hover {
-            background-color: #e53935;
+            background: linear-gradient(135deg, #EF5350, #D32F2F);
+            box-shadow: 0 10px 25px rgba(244, 67, 54, 0.4);
         }
 
         .no.hidden {
@@ -173,23 +284,26 @@
             padding: 15px;
             text-align: center;
             font-size: 14px;
-            color: #8b0040;
+            color: white;
             width: 100%;
-            background-color: #ffe4e9;
-            border-radius: 10px;
-            border: 3px solid #ff69b4;
+            background: linear-gradient(45deg, rgba(255, 20, 147, 0.8), rgba(255, 105, 180, 0.8));
+            border-radius: 15px;
+            border: 2px solid white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .footer a {
-            color: #c71585;
+            color: white;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
             font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .footer a:hover {
-            color: #8b0040;
+            color: #FFEBEE;
             text-decoration: underline;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
         }
 
         .seo {
@@ -197,64 +311,70 @@
         }
 
         .valentine-heart {
-            font-size: 30px;
-            margin-bottom: 8px;
+            font-size: 36px;
+            margin-bottom: 10px;
             animation: heartbeat 1.5s infinite;
-            color: #ff1493;
+            color: white;
+            text-shadow: 0 0 15px rgba(255, 20, 147, 0.7);
         }
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
             50% { transform: scale(1.1); }
+            75% { transform: scale(1.15); }
         }
 
         @media (max-width: 480px) {
             body {
-                padding: 5px;
+                padding: 10px;
             }
             
             .App {
                 padding: 15px;
                 max-width: 95%;
+                border-radius: 20px;
             }
             
-            .App-logo {
-                width: 180px;
-                height: 180px;
-                margin-bottom: 15px;
+            .gif-container {
+                width: 200px;
+                height: 200px;
+                margin-bottom: 20px;
             }
             
             .message {
-                font-size: 20px;
-                padding: 10px 15px;
+                font-size: 22px;
+                padding: 12px 16px;
                 margin-bottom: 20px;
+                border-radius: 12px;
             }
             
             .buttons-row {
                 gap: 15px;
-                flex-direction: row;
             }
             
             .valentine-heart {
-                font-size: 26px;
+                font-size: 32px;
             }
             
             .footer {
                 padding: 12px;
                 font-size: 13px;
                 margin-top: 20px;
+                border-radius: 12px;
             }
         }
 
         @media (max-height: 700px) {
-            .App-logo {
-                width: 160px;
-                height: 160px;
+            .gif-container {
+                width: 180px;
+                height: 180px;
             }
             
             .message {
-                font-size: 18px;
+                font-size: 20px;
                 margin-bottom: 15px;
+                padding: 10px 14px;
             }
             
             .buttons-container {
@@ -269,29 +389,63 @@
 
         /* Animation for the HOORAY message */
         @keyframes hooray {
-            0% { transform: scale(1); }
-            25% { transform: scale(1.2) rotate(-5deg); }
-            50% { transform: scale(1.15) rotate(5deg); }
-            75% { transform: scale(1.2) rotate(-5deg); }
-            100% { transform: scale(1); }
+            0% { 
+                transform: scale(1); 
+                background: linear-gradient(45deg, rgba(255, 20, 147, 0.8), rgba(255, 105, 180, 0.8));
+            }
+            25% { 
+                transform: scale(1.3) rotate(-5deg); 
+                background: linear-gradient(45deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
+            }
+            50% { 
+                transform: scale(1.2) rotate(5deg); 
+                background: linear-gradient(45deg, rgba(255, 20, 147, 0.9), rgba(255, 182, 193, 0.9));
+            }
+            75% { 
+                transform: scale(1.3) rotate(-5deg); 
+                background: linear-gradient(45deg, rgba(255, 182, 193, 0.9), rgba(255, 105, 180, 0.9));
+            }
+            100% { 
+                transform: scale(1); 
+                background: linear-gradient(45deg, rgba(255, 20, 147, 0.8), rgba(255, 105, 180, 0.8));
+            }
         }
 
         .hooray {
             animation: hooray 0.8s ease-in-out 2;
-            color: #ff1493;
-            background-color: #ffd1dc;
+            color: white;
         }
 
         /* Heart pulse animation for the logo when yes is clicked */
         @keyframes logoHeartbeat {
-            0% { transform: scale(1); border-color: #ff1493; }
-            50% { transform: scale(1.03); border-color: #ff69b4; }
-            100% { transform: scale(1); border-color: #ff1493; }
+            0% { 
+                transform: scale(1); 
+                box-shadow: 
+                    0 0 0 4px white,
+                    0 0 0 8px rgba(255, 105, 180, 0.5),
+                    0 0 25px rgba(255, 20, 147, 0.5),
+                    inset 0 0 15px rgba(255, 255, 255, 0.3);
+            }
+            50% { 
+                transform: scale(1.05); 
+                box-shadow: 
+                    0 0 0 4px white,
+                    0 0 0 8px rgba(255, 105, 180, 0.8),
+                    0 0 40px rgba(255, 20, 147, 0.8),
+                    inset 0 0 25px rgba(255, 255, 255, 0.5);
+            }
+            100% { 
+                transform: scale(1); 
+                box-shadow: 
+                    0 0 0 4px white,
+                    0 0 0 8px rgba(255, 105, 180, 0.5),
+                    0 0 25px rgba(255, 20, 147, 0.5),
+                    inset 0 0 15px rgba(255, 255, 255, 0.3);
+            }
         }
 
         .heartbeat {
             animation: logoHeartbeat 1s infinite;
-            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
         }
     </style>
 </head>
@@ -301,7 +455,9 @@
     <div class="App">
         <header class="App-header">
             <div class="valentine-heart">💖</div>
-            <img id="logo" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWphMHVqczg1NHFocDN5bGk3a2Mzd2t4cnpzdGtzcjBjbDVhcjdmeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/SoZAMdHWldHbQHLCGZ/giphy.gif" class="App-logo" alt="Hello Kitty Valentine">
+            <div class="gif-container">
+                <img id="logo" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWphMHVqczg1NHFocDN5bGk3a2Mzd2t4cnpzdGtzcjBjbDVhcjdmeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/SoZAMdHWldHbQHLCGZ/giphy.gif" class="App-logo" alt="Hello Kitty Valentine">
+            </div>
             <p id="message" class="message">Will you be my valentine? 💕</p>
             <div class="buttons-container" id="buttonsContainer">
                 <div class="buttons-row" id="buttonsRow">
@@ -316,7 +472,7 @@
         </header>
         
         <div class="footer">
-            <a href="http://jerardlouis.github.io/">
+            <a href="http://jerardlouis.github.io">
                 <small>
                     💖 By Jerard Louis Dayanghirang Guevarra
                     <br/>
@@ -355,68 +511,68 @@
         const yesButton = document.getElementById('yesButton');
         const noButton = document.getElementById('noButton');
         const buttonsRow = document.getElementById('buttonsRow');
-        const buttonsContainer = document.getElementById('buttonsContainer');
+        const gifContainer = document.querySelector('.gif-container');
         const heartsContainer = document.getElementById('heartsContainer');
 
         // Create floating hearts
         function createHearts() {
-            const hearts = ['💖', '💗', '💓', '💞', '💕', '❣️', '❤️'];
+            const hearts = ['💖', '💗', '💓', '💞', '💕', '❣️', '❤️', '🧡', '💛', '💚', '💙', '💜'];
             
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 20; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
                 heart.style.left = `${Math.random() * 100}%`;
                 heart.style.top = `${Math.random() * 100}%`;
-                heart.style.animationDelay = `${Math.random() * 5}s`;
-                heart.style.fontSize = `${Math.random() * 12 + 12}px`;
+                heart.style.animationDelay = `${Math.random() * 8}s`;
+                heart.style.fontSize = `${Math.random() * 20 + 15}px`;
+                heart.style.animationDuration = `${Math.random() * 5 + 8}s`;
                 heartsContainer.appendChild(heart);
             }
         }
 
         // Update button sizes and layout
         function updateButtonLayout() {
-            // Cap maximum sizes
-            const maxYesSize = window.innerWidth < 480 ? 42 : 48;
-            const minNoSize = window.innerWidth < 480 ? 10 : 12;
+            // Cap maximum sizes for mobile
+            const maxYesSize = window.innerWidth < 480 ? 36 : 42;
             
             // Calculate sizes
             const currentYesSize = Math.min(yesSize, maxYesSize);
-            const currentNoSize = Math.max(minNoSize, 18 - (yesSize - 18) / 4);
+            const currentNoSize = Math.max(12, 18 - (yesSize - 18) / 3);
             
             // Update Yes button
             yesButton.style.fontSize = `${currentYesSize}px`;
-            yesButton.style.padding = `${currentYesSize * 0.7}px ${currentYesSize * 1.2}px`;
-            yesButton.style.minWidth = `${currentYesSize * 5}px`;
-            yesButton.style.minHeight = `${currentYesSize * 2}px`;
+            yesButton.style.padding = `${currentYesSize * 0.8}px ${currentYesSize * 1.5}px`;
+            yesButton.style.minWidth = `${currentYesSize * 6}px`;
+            yesButton.style.minHeight = `${currentYesSize * 2.2}px`;
             
             // Update No button
             noButton.style.fontSize = `${currentNoSize}px`;
-            noButton.style.padding = `${currentNoSize * 0.7}px ${currentNoSize * 1.2}px`;
-            noButton.style.minWidth = `${currentNoSize * 5}px`;
-            noButton.style.minHeight = `${currentNoSize * 2}px`;
+            noButton.style.padding = `${currentNoSize * 0.8}px ${currentNoSize * 1.5}px`;
+            noButton.style.minWidth = `${currentNoSize * 6}px`;
+            noButton.style.minHeight = `${currentNoSize * 2.2}px`;
             
             // Update message font size to match yes button
             messageElement.style.fontSize = `${Math.min(28, currentYesSize + 6)}px`;
             
             // Check if Yes button is getting too large
-            const yesButtonWidth = currentYesSize * 5;
+            const yesButtonWidth = currentYesSize * 6;
             const containerWidth = buttonsRow.offsetWidth;
             
-            // If Yes button takes more than 60% of container width, move No button below
-            if (yesButtonWidth > containerWidth * 0.6) {
+            // If Yes button takes more than 50% of container width, move No button below
+            if (yesButtonWidth > containerWidth * 0.5) {
                 buttonsRow.style.flexDirection = 'column';
-                buttonsRow.style.gap = '20px';
+                buttonsRow.style.gap = '25px';
                 buttonsRow.style.alignItems = 'center';
                 
                 // Center Yes button and put No button below
                 yesButton.style.order = 1;
                 noButton.style.order = 2;
                 
-                // If Yes button is very large, start shrinking No button more
-                if (yesButtonWidth > containerWidth * 0.8) {
-                    noButton.style.opacity = '0.7';
-                    noButton.style.transform = 'scale(0.9)';
+                // If Yes button is very large, start fading No button
+                if (yesButtonWidth > containerWidth * 0.7) {
+                    noButton.style.opacity = '0.6';
+                    noButton.style.transform = 'scale(0.85)';
                 }
                 
                 // If Yes button is almost filling container, hide No button
@@ -444,6 +600,9 @@
                 setTimeout(() => {
                     messageElement.classList.remove('hooray');
                 }, 1600);
+                
+                // Make gif container glow more
+                gifContainer.style.animationDuration = '0.5s';
             }
         }
 
@@ -454,22 +613,24 @@
             
             // Add animation when yes is clicked
             if (newImg === "https://i.pinimg.com/originals/14/12/a6/1412a602c0cd0027a7c494967a564e7e.gif") {
-                logoElement.classList.add('heartbeat');
+                gifContainer.classList.add('heartbeat');
             } else {
-                logoElement.classList.remove('heartbeat');
+                gifContainer.classList.remove('heartbeat');
             }
         }
 
         // Yes button click handler
         function yesClick() {
-            updateText('HOORAY! You made me happy! 💖😊');
+            updateText('HOORAY! You made me the happiest! 💖😊🎉');
             updateImg("https://i.pinimg.com/originals/14/12/a6/1412a602c0cd0027a7c494967a564e7e.gif");
             
             // Reset button sizes and layout
             yesSize = 18;
-            noSize = 18;
             noClickCount = 0;
             updateButtonLayout();
+            
+            // Create celebration effect
+            createCelebrationHearts();
         }
 
         // No button click handler
@@ -478,14 +639,48 @@
             updateText(sure[num]);
             
             // Yes button gets bigger
-            yesSize += 8;
+            yesSize += 10;
             noClickCount++;
             
             updateButtonLayout();
             
             // If No button is hidden, show a sad message
             if (noButton.classList.contains('hidden')) {
-                updateText("Oh no... 💔😭 Please say yes... 🥺");
+                updateText("Oh no... 💔😭 Please reconsider... 🥺🌸");
+            }
+        }
+
+        // Create celebration hearts
+        function createCelebrationHearts() {
+            const hearts = ['💖', '💗', '💓', '💞', '💕', '❤️'];
+            const colors = ['#ff1493', '#ff69b4', '#ffb6c1', '#ff4081', '#f48fb1'];
+            
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.style.position = 'fixed';
+                heart.style.fontSize = `${Math.random() * 30 + 25}px`;
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.top = '110%';
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.zIndex = '1000';
+                heart.style.textShadow = '0 0 15px currentColor';
+                heart.style.pointerEvents = 'none';
+                document.body.appendChild(heart);
+                
+                // Animate heart floating up
+                const animation = heart.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(-${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 2000 + 3000,
+                    easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+                });
+                
+                // Remove heart after animation
+                animation.onfinish = () => {
+                    heart.remove();
+                };
             }
         }
 
